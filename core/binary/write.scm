@@ -1,3 +1,6 @@
+;; SPDX-FileCopyrightText: 2019 Lassi Kortela
+;; SPDX-License-Identifier: ISC
+
 (define (hash-table->plist table)
   (hash-table-fold table (lambda (key val plist) (cons key (cons val plist)))
                    '()))

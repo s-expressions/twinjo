@@ -1,3 +1,6 @@
+;; SPDX-FileCopyrightText: 2019 Lassi Kortela
+;; SPDX-License-Identifier: ISC
+
 (define (read-char? char)
   (and (eqv? char (peek-char))
        (read-char)))
