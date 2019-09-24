@@ -1,0 +1,7 @@
+(define-library (core text read)
+  (export core-text-read)
+  (import (scheme base)
+          (scheme char)
+          (scheme read)
+          (srfi 69))
+  (include "read.scm"))
