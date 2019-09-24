@@ -1,7 +1,6 @@
 (define (hash-table->plist table)
-  (reverse (hash-table-fold
-            table (lambda (key val plist) (cons val (cons key plist)))
-            '())))
+  (hash-table-fold table (lambda (key val plist) (cons key (cons val plist)))
+                   '()))
 
 (define (symbol-first-char-needs-quoting? char)
   (not (char-alphabetic? char)))
