@@ -1,0 +1,7 @@
+(define-library (core text write)
+  (export core-text-write)
+  (import (scheme base)
+          (scheme char)
+          (scheme write)
+          (srfi 69))
+  (include "write.scm"))
