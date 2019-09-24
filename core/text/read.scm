@@ -58,7 +58,7 @@
 (define (symbol-subsequent? char)
   (and (char? char) (or (char-alphabetic? char)
                         (char-numeric? char)
-                        (case char ((#\- #\_) #t #f)))))
+                        (case char ((#\- #\_) #t) (else #f)))))
 
 (define (read-bare-symbol?)
   (let ((name (read-char* symbol-first? symbol-subsequent?)))
