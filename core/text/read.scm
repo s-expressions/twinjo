@@ -72,11 +72,6 @@
         ((#f) (error "Unknown character after sharpsign"))
         (else (error "Unknown symbol after sharpsign")))))
 
-(define (read-byte-escape)
-  (or (read-char? #\\)
-      (read-char? #\u)
-      (error "Unknown escape character")))
-
 (define (read-char-escape)
   (or (read-char? #\\)
       (read-char? #\")
