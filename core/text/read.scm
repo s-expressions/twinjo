@@ -24,8 +24,7 @@
   (case obj ((#\space #\tab #\newline #\return #\,) #t) (else #f)))
 
 (define (skip-whitespace-and-comments)
-  (cond ((core-whitespace-char? (peek-char))
-         (read-char)
+  (cond ((read-char-satisyfing core-whitespace-char?)
          (skip-whitespace-and-comments))
         ((read-char? #\;)
          (skip-rest-of-line)
