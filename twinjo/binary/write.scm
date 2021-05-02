@@ -1,4 +1,4 @@
-x;; Copyright 2019 Lassi Kortela
+;; Copyright 2019 Lassi Kortela
 ;; SPDX-License-Identifier: ISC
 
 (define (twinjo-binary-write obj port)
