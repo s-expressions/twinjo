@@ -1,8 +1,8 @@
 ;; Copyright 2019 Lassi Kortela
 ;; SPDX-License-Identifier: ISC
 
-(define-library (core binary write)
-  (export core-binary-write)
+(define-library (twinjo binary write)
+  (export twinjo-binary-write)
   (import (scheme base)
           (scheme char)
           (scheme write)

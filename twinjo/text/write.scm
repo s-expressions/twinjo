@@ -66,8 +66,8 @@
          (write-char #\{)
          (write-elements (hash-table->plist obj))
          (write-char #\}))
-        (else (error "Don't know how to write that object as core text"))))
+        (else (error "Don't know how to write that object as twinjo text"))))
 
-(define (core-text-write obj)
+(define (twinjo-text-write obj)
   (write-nested obj)
   (newline))

@@ -1,4 +1,4 @@
-;; Core text
+;; Twinjo text
 
 (hello ("\"wide\" \\world" |, symbolically\\\| speaking| 123
         (#t #f) -9999999999))

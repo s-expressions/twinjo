@@ -72,7 +72,7 @@
          (let ((plist (hash-table->plist obj)))
            (write-asn1-type-length #xe4 (length plist))
            (for-each write-nested plist)))
-        (else (error "Don't know how to write that object as core binary"))))
+        (else (error "Don't know how to write that object as Twinjo binary"))))
 
-(define (core-binary-write obj)
+(define (twinjo-binary-write obj)
   (write-nested obj))

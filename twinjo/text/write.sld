@@ -1,10 +1,10 @@
 ;; SPDX-FileCopyrightText: 2019 Lassi Kortela
 ;; SPDX-License-Identifier: ISC
 
-(define-library (core text read)
-  (export core-text-read)
+(define-library (twinjo text write)
+  (export twinjo-text-write)
   (import (scheme base)
           (scheme char)
-          (scheme read)
+          (scheme write)
           (srfi 69))
-  (include "read.scm"))
+  (include "write.scm"))

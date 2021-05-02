@@ -23,11 +23,11 @@
     (read-char)
     (skip-rest-of-line)))
 
-(define (core-whitespace-char? obj)
+(define (twinjo-whitespace-char? obj)
   (case obj ((#\space #\tab #\newline #\return #\,) #t) (else #f)))
 
 (define (skip-whitespace-and-comments)
-  (cond ((read-char-satisyfing core-whitespace-char?)
+  (cond ((read-char-satisyfing twinjo-whitespace-char?)
          (skip-whitespace-and-comments))
         ((read-char? #\;)
          (skip-rest-of-line)
@@ -131,6 +131,6 @@
         (error (string-append "Expected " what))
         one)))
 
-(define (core-text-read)
+(define (twinjo-text-read)
   (skip-whitespace-and-comments)
   (may-read-one))
