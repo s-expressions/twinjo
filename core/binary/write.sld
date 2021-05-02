@@ -1,4 +1,4 @@
-;; SPDX-FileCopyrightText: 2019 Lassi Kortela
+;; Copyright 2019 Lassi Kortela
 ;; SPDX-License-Identifier: ISC
 
 (define-library (core binary write)
