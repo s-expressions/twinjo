@@ -32,11 +32,9 @@ or either format at the writer's discretion (marked how?).
     Leading 0s are not allowed, and neither are trailing 0s following a decimal point.
     Either the decimal point or the exponent can be omitted but not both.
     
-  * Symbols: a sequence of lower-case ASCII letters, digits, and the symbols
-    `! $ & * + - . < = > ? ^ _ ~`, except that the first character may not be a digit,
-    and if the first character is a minus sign, the second character may not be a digit.
-    
-    Symbols containing at least one other Unicode character are
+  * Symbols: a sequence of ASCII characters that conform to the
+    [portable Lisp symbol syntax](https://github.com/s-expressions/pose/blob/master/symbol.text).
+    Symbols containing any other character are
     encoded as a sequence of characters surrounded by vertical bars.
     The only escapes are `\\`, `\"`, and `\|`.
     
