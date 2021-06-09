@@ -7,8 +7,8 @@ Twinjo Text, a variant of Lisp S-expressions, and
 Twinjo Binary, a subset of ASN.1 Basic Encoding Rules.
 It makes no use of ASN.1 schemas.
 
-It also arranges for there to be just one encoding
-for each datum represented (with the exception of floats), although
+It also arranges for there to be just one textual and one binary representation
+of each datum (with the exception of floats), although
 the Twinjo Text rules don't quite correspond to any Lisp syntax,
 and the Twinjo Binary rules don't conform to either of the usual subsets,
 ASN.1 Canonical Encoding Rules (CER)
@@ -21,6 +21,20 @@ for both reading and writing.
 
 Should bytevectors in Twinjo Text use hexdigits (easier to comprehend), base64 (shorter),
 or either format at the writer's discretion (marked how?).
+
+## Basic Semantics
+
+The semantic model of Twinjo has the following 8 basic types:
+Null, Boolean, Integer, Float, Symbol, String, Bytevector, and
+List (sequence of any of these types).
+The basic types have predefined semantics,
+and each combination of a basic type with a tag drawn from
+an unbounded universe of Tags has either globally defined semantics,
+privately defined semantics, or is a semantic error.
+
+A description of the semantics of both the basic types
+and certain combinations of basic types and tags is available elsewhere
+(not yet written down).
 
 ## Basic Text syntax
 
@@ -61,7 +75,7 @@ or either format at the writer's discretion (marked how?).
 
   * Lists: Enclosed in parentheses.
 
-  * Tags: Used to extend syntax.
+  * Tags: Used to extend the basic semantics and syntax.
     Consists of `#` followed by:
       * nothing (list follows)
       * `X` followed by a type number in lower-case hex (arbitrary datum follows)
