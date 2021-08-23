@@ -80,7 +80,7 @@ and certain combinations of basic types and tags is available elsewhere
       * nothing (list follows)
       * `X` followed by a type number in lower-case hex (arbitrary datum follows)
       * a single lower-case ASCII letter (no datum follows)
-      * a symbol (arbitrary datum follows)
+      * a symbol without escapes (arbitrary datum follows)
 
 ## Whitespace and comments
 
@@ -141,20 +141,20 @@ pseudo-length byte `80`,
 the encoded elements of the list,
 an EOC marker.
 
-Text: subobjects in parentheses
+Text equivalent: subobjects in parentheses
 
 Vectors:  Type byte `30`,
 length bytes,
 the encoded elements of the vector,
 an EOC marker.
 
-Text: the empty tag `#` followed by a list.
+Text equivalent: the empty tag `#` followed by a list.
 
 Booleans: Type byte `01`,
 length byte `01`,
 either `00` for false or `FF` for true.
 
-Text: `#t` or `#f`.
+Text equivalent: `#t` or `#f`.
 
 Integers:  Type byte `02`,
 1-9 length bytes,
@@ -166,26 +166,26 @@ IEEE double floats:  Type byte `DB`,
 length byte `08`,
 8 content bytes representing a big-endian IEEE binary64 float.
 
-Text: optional sign followed by sequence of decimal digits,
+Text equivalent: optional sign followed by sequence of decimal digits,
 with either a decimal point or an exponent.
 
 Strings:  Type byte `OC`,
 1-9 length bytes representing the length of the string in bytes
 when encoded as UTF-8,
 corresponding content bytes.
-Text: characters enclosed in double quotes, with `\\' and `\"` as escapes.
+Text equivalent: characters enclosed in double quotes, with `\\' and `\"` as escapes.
 
 Symbols:  Type byte `DD`,
 1-9 length bytes representing the length of the string in bytes
 when encoded as UTF-8,
 corresponding content bytes.
-Text: lower-case ASCII letters, or characters enclosed in vertical bars,
+Text equivalent: lower-case ASCII letters, or characters enclosed in vertical bars,
 with '\\` and `\|` as escapes.
 
 Nulls:  Type byte `05`,
 length byte `00`.
 
-Text: `#n`.
+Text equivalent: `#n`.
 
 Note: This is not the same as `#f` or `()`;
 there is no natural representation in Scheme.
@@ -202,7 +202,7 @@ Timestamps: Type byte `18`,
 ASCII encoding of a ISO 8601 timestamp
 without hyphens, colons, or spaces.
 
-Text: `#date` followed by a string.
+Text equivalent: `#date` followed by a string.
 
 ## Skipping unknown binary types
 
