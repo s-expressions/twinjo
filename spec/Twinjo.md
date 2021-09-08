@@ -81,12 +81,14 @@ and certain combinations of basic types and tags is available elsewhere
       * `X` followed by a type number in lower-case hex (arbitrary datum follows)
       * a single lower-case ASCII letter (no datum follows)
       * a symbol without escapes (arbitrary datum follows)
-
+     
 ## Whitespace and comments
 
 Whitespace outside strings is ignored completely,
 except for separating
 adjacent tokens when ambiguity would result.
+Specifically, a tag followed by a symbol or number
+requires separating whitespace.
 For example, `#f 32 (1.0 2.0)` is not the same as
 `#f32 (1.0 2.0)`.
 Whitespace by itself is not a valid S-expression.
