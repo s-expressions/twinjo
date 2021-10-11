@@ -11,9 +11,6 @@ it convenient to switch between text and binary as needed.
 Twinjo Text is a variant of Lisp S-expressions, and Twinjo Binary is a
 subset of ASN.1 Basic Encoding Rules. It makes no use of ASN.1 schemas.
 
-variant of Lisp S-expressions, and Twinjo Binary, a subset of ASN.1
-Basic Encoding Rules. It makes no use of ASN.1 schemas.
-
 It also arranges for there to be just one encoding for each datum
 represented, although the Twinjo Text rules don't quite correspond to
 any Lisp syntax, and the Twinjo Binary rules don't conform to either of
