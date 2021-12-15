@@ -7,8 +7,8 @@ Twinjo Text, a variant of Lisp S-expressions, and
 Twinjo Binary, a subset of ASN.1 Basic Encoding Rules.
 It makes no use of ASN.1 schemas.
 
-It also arranges for there to be just one encoding
-for each datum represented (with the exception of floats), although
+It also arranges for there to be just one textual and one binary representation
+of each datum (with the exception of floats), although
 the Twinjo Text rules don't quite correspond to any Lisp syntax,
 and the Twinjo Binary rules don't conform to either of the usual subsets,
 ASN.1 Canonical Encoding Rules (CER)
@@ -22,6 +22,20 @@ for both reading and writing.
 Should bytevectors in Twinjo Text use hexdigits (easier to comprehend), base64 (shorter),
 or either format at the writer's discretion (marked how?).
 
+## Basic Semantics
+
+The semantic model of Twinjo has the following 8 basic types:
+Null, Boolean, Integer, Float, Symbol, String, Bytevector, and
+List (sequence of any of these types).
+The basic types have predefined semantics,
+and each combination of a basic type with a tag drawn from
+an unbounded universe of Tags has either globally defined semantics,
+privately defined semantics, or is a semantic error.
+
+A description of the semantics of both the basic types
+and certain combinations of basic types and tags is available elsewhere
+(not yet written down).
+
 ## Basic Text syntax
 
   * Integers: optional minus sign followed by sequence of digits, no leading 0s.
@@ -32,11 +46,9 @@ or either format at the writer's discretion (marked how?).
     Leading 0s are not allowed, and neither are trailing 0s following a decimal point.
     Either the decimal point or the exponent can be omitted but not both.
     
-  * Symbols: a sequence of lower-case ASCII letters, digits, and the symbols
-    `! $ & * + - . < = > ? ^ _ ~`, except that the first character may not be a digit,
-    and if the first character is a minus sign, the second character may not be a digit.
-    
-    Symbols containing at least one other Unicode character are
+  * Symbols: a sequence of ASCII characters that conform to the
+    [portable Lisp symbol syntax](https://github.com/s-expressions/pose/blob/master/symbol.text).
+    Symbols containing any other character are
     encoded as a sequence of characters surrounded by vertical bars.
     The only escapes are `\\`, `\"`, and `\|`.
     
@@ -63,18 +75,20 @@ or either format at the writer's discretion (marked how?).
 
   * Lists: Enclosed in parentheses.
 
-  * Tags: Used to extend syntax.
+  * Tags: Used to extend the basic semantics and syntax.
     Consists of `#` followed by:
       * nothing (list follows)
       * `X` followed by a type number in lower-case hex (arbitrary datum follows)
       * a single lower-case ASCII letter (no datum follows)
-      * a symbol (arbitrary datum follows)
-
+      * a symbol without escapes (arbitrary datum follows)
+     
 ## Whitespace and comments
 
 Whitespace outside strings is ignored completely,
 except for separating
 adjacent tokens when ambiguity would result.
+Specifically, a tag followed by a symbol or number
+requires separating whitespace.
 For example, `#f 32 (1.0 2.0)` is not the same as
 `#f32 (1.0 2.0)`.
 Whitespace by itself is not a valid S-expression.
@@ -129,20 +143,20 @@ pseudo-length byte `80`,
 the encoded elements of the list,
 an EOC marker.
 
-Text: subobjects in parentheses
+Text equivalent: subobjects in parentheses
 
 Vectors:  Type byte `30`,
 length bytes,
 the encoded elements of the vector,
 an EOC marker.
 
-Text: the empty tag `#` followed by a list.
+Text equivalent: the empty tag `#` followed by a list.
 
 Booleans: Type byte `01`,
 length byte `01`,
 either `00` for false or `FF` for true.
 
-Text: `#t` or `#f`.
+Text equivalent: `#t` or `#f`.
 
 Integers:  Type byte `02`,
 1-9 length bytes,
@@ -154,26 +168,26 @@ IEEE double floats:  Type byte `DB`,
 length byte `08`,
 8 content bytes representing a big-endian IEEE binary64 float.
 
-Text: optional sign followed by sequence of decimal digits,
+Text equivalent: optional sign followed by sequence of decimal digits,
 with either a decimal point or an exponent.
 
 Strings:  Type byte `OC`,
 1-9 length bytes representing the length of the string in bytes
 when encoded as UTF-8,
 corresponding content bytes.
-Text: characters enclosed in double quotes, with `\\' and `\"` as escapes.
+Text equivalent: characters enclosed in double quotes, with `\\' and `\"` as escapes.
 
 Symbols:  Type byte `DD`,
 1-9 length bytes representing the length of the string in bytes
 when encoded as UTF-8,
 corresponding content bytes.
-Text: lower-case ASCII letters, or characters enclosed in vertical bars,
+Text equivalent: lower-case ASCII letters, or characters enclosed in vertical bars,
 with '\\` and `\|` as escapes.
 
 Nulls:  Type byte `05`,
 length byte `00`.
 
-Text: `#n`.
+Text equivalent: `#n`.
 
 Note: This is not the same as `#f` or `()`;
 there is no natural representation in Scheme.
@@ -190,7 +204,7 @@ Timestamps: Type byte `18`,
 ASCII encoding of a ISO 8601 timestamp
 without hyphens, colons, or spaces.
 
-Text: `#date` followed by a string.
+Text equivalent: `#date` followed by a string.
 
 ## Skipping unknown binary types
 
