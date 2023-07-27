@@ -71,7 +71,7 @@ and certain combinations of basic types and tags is available elsewhere
     The only escapes are `\\`, `\"`, and `\|`.
 
   * Bytevectors:  Hex digits (case-independent) enclosed in `{#` and `}`
-  * A hyphen may be used between consecutive digits.  This is related to UUID syntax.
+    A hyphen may be used between consecutive digits.  This is related to UUID syntax.
     As an alternative, base64 encoding enclosed in `{` and `}`.
     Rationale: so that bytevectors can be prefixed with a tag without needing
     to support nested tags.
