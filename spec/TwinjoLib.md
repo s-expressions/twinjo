@@ -63,7 +63,6 @@ Returns the list of irritants associated with *twinjo-error*.
 
 `max-byte-object`  
 `max-compound-object`  
-`max-nesting-depth`
 
 These parameters are set to constraint the sizes of
 objects read by `twinjo-read-text` and `twinjo-read-binary`.
@@ -71,7 +70,6 @@ It is an error if their values are not exact non-negative integers.
 If the length of a byte object exceeds `(max-byte-object)`,
 or a compound object is found to have more than
 `(max-compound-object)` subobjects,
-or an object is nested more than `(max-nesting-depth)`,
 an error satisfying `twinjo-error` is signaled.
 The initial values of these parameters are implementation-specified.
 Note that there is no value meaning "unlimited".
