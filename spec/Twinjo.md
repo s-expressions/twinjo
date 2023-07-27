@@ -2,13 +2,16 @@
 
 This SRFI specifies Twinjo, a general and extensible method of
 serializing Scheme data in a way that other languages
-can straightforwardly handle.  Twinjo provides two formats:
+can straightforwardly handle.  It is *not* a proposal for extending
+or changing the lexical syntax of Scheme code.
+
+Twinjo provides two formats:
 Twinjo Text, a variant of Lisp S-expressions, and
 Twinjo Binary, a subset of ASN.1 Basic Encoding Rules.
 It makes no use of ASN.1 schemas.
 
 It also arranges for there to be just one textual and one binary representation
-of each datum (with the exception of floats), although
+of each datum value (with the exception of floats), although
 the Twinjo Text rules don't quite correspond to any Lisp syntax,
 and the Twinjo Binary rules don't conform to either of the usual subsets,
 ASN.1 Canonical Encoding Rules (CER)
@@ -19,8 +22,7 @@ for both reading and writing.
 
 ## Issues
 
-Should bytevectors in Twinjo Text use hexdigits (easier to comprehend), base64 (shorter),
-or either format at the writer's discretion (marked how?).
+None at present.
 
 ## Basic Semantics
 
@@ -68,8 +70,9 @@ and certain combinations of basic types and tags is available elsewhere
   * Strings:  Unicode characters enclosed in double quotes.
     The only escapes are `\\`, `\"`, and `\|`.
 
-  * Bytevectors:  Hex digits enclosed in curly braces. A hyphen may be used
-    between consecutive digits.  This is related to UUID syntax.
+  * Bytevectors:  Hex digits (case-independent) enclosed in `{#` and `}`
+  * A hyphen may be used between consecutive digits.  This is related to UUID syntax.
+    As an alternative, base64 encoding enclosed in `{` and `}`.
     Rationale: so that bytevectors can be prefixed with a tag without needing
     to support nested tags.
 
@@ -80,7 +83,7 @@ and certain combinations of basic types and tags is available elsewhere
       * nothing (list follows)
       * `X` followed by a type number in lower-case hex (arbitrary datum follows)
       * a single lower-case ASCII letter (no datum follows)
-      * a symbol without escapes (arbitrary datum follows)
+      * a symbol without escapes that does not begin with X (arbitrary datum follows)
      
 ## Whitespace and comments
 
@@ -97,6 +100,8 @@ The character `;` (except in strings and symbols with vertical bars)
 introduces a comment
 that goes up to but not including the end of line and is discarded.
 A comment by itself is not a valid S-expression.
+
+Whitespace and comments have no binary representation.
 
 ## Binary syntax
 
